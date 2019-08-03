@@ -1,9 +1,10 @@
-# 42-roger-skyline-1 #
-roger-skyline-1 (42 association / 21 school)
+# roger-skyline-1 #
 
-## 01 VM Part ##
+Proekt roger-skyline-1 (42 association / 21 school).
 
-* Download Oracle VirtualBox 6.x https://www.virtualbox.org/wiki/Downloads
-* Install Oracle VirtualBox 6.x
-* Download Debian GNU/Linux (i use debian 10.0.0  amd64 NetInst (https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/)
-* Run Oracle VirtualBox and [follow instruction](00-VM/README.md) 
+## 01. VM Part ##
+
+* Zagruzhaem Oracle VirtualBox 6.x -- *[po ssyle](https://www.virtualbox.org/wiki/Downloads)*.
+* Ustanavlivaem Oracle VirtualBox 6.x v nashu sistemu.
+* Zagruzhaem ISO-obraz ustanovochnogo diska Debian GNU/Linux. Tekushchaya, poslednyaya versiya -- **debian 10.0.0  amd64 NetInst** -- *[po ssylke](https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/)*.
+* Zapuskaem Oracle VirtualBox i [dalee sleduem instrukciyam](00-VM/README.md). 
