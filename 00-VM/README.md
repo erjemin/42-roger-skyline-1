@@ -58,13 +58,13 @@
 
 ![alt](img/VirtualBox-Debian10-01-01.png)
 
-**02.** Выбираем язык утановки `Russian - Руссий`. Dalee ustanovochnaya programmu budet rabotat' na russkom, tak zhe budet vybrana lokal' ustanvki `ru_RU.UTF-8`.
+**02.** Vybiraem yazyk uctanovki `Russian - Руссий`. Dalee ustanovochnaya programmu budet rabotat' na russkom, tak zhe budet vybrana lokal' ustanvki `ru_RU.UTF-8`.
                                                    ![alt](img/VirtualBox-Debian10-01-02.png)
                                                    **03.** Vybiraem stranu mestopolozheniya `Российская Федерация`.
 
 ![alt](img/VirtualBox-Debian10-01-03.png)
 
-**04.** Vybiraem lokalizaciyu i raskladuk klaviatury `Русская`. 
+**04.** Vybiraem lokalizaciyu i raskladku klaviatury `Русская`. 
 
 ![alt](img/VirtualBox-Debian10-01-04.png)
 
@@ -76,7 +76,7 @@
 
 ![alt](img/VirtualBox-Debian10-01-06.png)
 
-**07.** Vvodim imya kompbyutera (ono budet prisvoeno v **hosts**).
+**07.** Vvodim imya kompyutera (ono budet prisvoeno v **hosts**).
 
 ![alt](img/VirtualBox-Debian10-01-07.png)
 
