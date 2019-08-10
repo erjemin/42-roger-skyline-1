@@ -10,19 +10,28 @@
 # Для того чтобы изменить настройки сетевых интерфейсов нужно отредактировать
 # системный файл `/etc/network/interfaces`.
 
+echo "1. Отключаем службу DHCP (клиента) на нашей машине.";
+echo "2. Настроить статический IP-адрес.";
+echo "3. Установть маску сети в \30.";
 
+IPADD="$(ip a | grep 'inet ' | awk '(NR == 2)' | awk '{print $2}' | cut -d '/' -f1)"
+GATEW="$(ip route | awk '(NR == 2)' | awk '{ print $1 }'  | cut -d / -f 1)"
+
+
+echo "";
 echo "Для того чтобы изменить настройки сетевых интерфейсов нужно";
 echo "отредактировать системный файл `/etc/network/interfaces`.";
 echo "В нем есть строка с описанием работы интернет-интрефейса, что-то типа:";
-echo "`iface enp0s3 inet dhcp`";
-echo "Нам нужно заменить `dhcp` на `static`, а затем добавить его описание:";
-echo -e "\taddress\tнаш._ip.ад_.рес";
-echo -e "\tnetmask\t255.255.255.252";
-echo -e "\tgateway\tтек.ущая.маска.подсети";
+echo "iface enp0s3 inet dhcp";
+echo "Нам нужно заменить `dhcp` на `static`, а затем добавить описание";
+echo "сетевого подключения:";
+echo -e "\taddress\t\t${IPADD}";
+echo -e "\tnetmask\t\t255.255.255.252";
+echo -e "\tgateway\t\t${GATEW}";
 echo -e "\tnameserver\t8.8.8.8";
 echo
 echo "Затем нужно будет перезапустить сетеволй интерфейс c помощью команды:";
-echo "`sudo -S systemctl restart networking`"
+echo "sudo -S systemctl restart networking"
 echo "или перезагрузиться."
 echo
 read -p "Хотите чтобы скрипт сделал это (но, возможно, и сломает)? " -n 1 -r
@@ -32,12 +41,12 @@ then
     exit 1
 fi
 
-sudo sed 's/dhcp/static/g' /etc/network/interfaces
-sudo echo -e "\taddress\tнаш._ip.ад_.рес\n" >> /etc/network/interfaces
-sudo echo -e "\tnetmask\t255.255.255.252\n" >> /etc/network/interfaces
-sudo echo -e "\tgateway\tтек.ущая.маска.подсети\n" >> /etc/network/interfaces
-sudo echo -e "\tnameserver\t8.8.8.8\n" >> /etc/network/interfaces
-sudo systemctl restart networking
+INTRF="$(sudo sed 's/dhcp/static/g' /etc/network/interfaces)"
+echo -e "${INTRF}" > /etc/network/interfaces
+echo -e "\taddress\t\t${IPADD}"  >> /etc/network/interfaces
+echo -e "\tnetmask\t\t255.255.255.252"  >> /etc/network/interfaces
+echo -e "\tgateway\t\t${GATEW}"  >> /etc/network/interfaces
+echo -e "\tnameserver\t8.8.8.8"  >> /etc/network/interfaces
 
 echo "";
 echo " _._     _,-'\"\"\`-._";
@@ -45,4 +54,7 @@ echo "(,-.\`._,'(       |\\\`-/|";
 echo "    \`-.-' \\ )-\`( , o o)";
 echo "          \`-    \\\`_\`\"'-  Mi-mi-mi... Ok!";
 echo "";
+
+sudo -S systemctl restart networking
+
 exit
