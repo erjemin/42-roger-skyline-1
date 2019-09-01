@@ -18,6 +18,7 @@ IPADD="$(ip a | grep 'inet ' | awk '(NR == 2)' | awk '{print $2}' | cut -d '/' -
 GATEW="$(ip route | awk '(NR == 2)' | awk '{ print $1 }'  | cut -d / -f 1)"
 
 
+echo "ЭТОТ СКРИПТ НУЖНО ЗАПУСКАТЬ С ПРАВАМИ АДМИНИСТРАТОРА (ИЗ ПОД SUDO).";
 echo "";
 echo "Для того чтобы изменить настройки сетевых интерфейсов нужно";
 echo "отредактировать системный файл `/etc/network/interfaces`.";
@@ -34,7 +35,7 @@ echo "Затем нужно будет перезапустить сетевол
 echo "sudo -S systemctl restart networking"
 echo "или перезагрузиться."
 echo
-read -p "Хотите чтобы скрипт сделал это (возможно, и сломает)? (y/n):" -n 1 -r
+read -p "Хотите чтобы скрипт сделал это (возможно, и сломает)? (Y/N):" -n 1 -r
 echo
 if [[ ! $REPLY =~ ^[Yy]$ ]]
 then
