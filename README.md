@@ -14,4 +14,4 @@
 1. Создаём пользователя ([скрипт A](01-network-and-security/01a-add-user.sh), затем [скрипт B](01-network-and-security/01b-add-user.sh)).
 2. Включаем для него sudo ([скрипт A](01-network-and-security/02a-sudo.sh), затем [скрипт B](01-network-and-security/02b-sudo.sh))
 3. Настроить сетевой интрефейс -- убрать dhcp и установить сетевую маску ([скрпит](01-network-and-security/03-make-DHCP-of_and-set-mask.sh))
-4. Перенастроить порты SSH и запретить логин root через SSH ([скрпит](01-network-and-security/04-set-SSH-port-and-lock-root-login.sh))
+4. Сделать   SSH-доступ с RSA-ключами, перенастроить SSH-порты сервера и запретить логин root через SSH ([скрипт для сервера](01-network-and-security/04b-set-SSH-RSA-security-keys.sh) и [скрипт для сервера](01-network-and-security/04a-set-SSH-port-and-lock-root-login.sh))
