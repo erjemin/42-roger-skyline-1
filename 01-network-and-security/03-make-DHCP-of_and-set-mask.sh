@@ -10,13 +10,13 @@
 # Для того чтобы изменить настройки сетевых интерфейсов нужно отредактировать
 # системный файл `/etc/network/interfaces`.
 
-echo "1. Отключаем службу DHCP (клиента) на нашей машине.";
+echo "1. Отключить службу DHCP (клиент).";
 echo "2. Настроить статический IP-адрес.";
 echo "3. Установть маску сети в \30.";
 
-IPADD="$(ip ad | grep 'inet ' | awk '(NR == 2)' | awk '{print $2}' | cut -d '/' -f1)"
-GATEW="$(ip route | awk '(NR == 2)' | awk '{ print $1 }'  | cut -d / -f 1)"
-
+export IPADD="$(ip ad | grep 'inet ' | awk '(NR == 2)' | awk '{print $2}' | cut -d '/' -f1)"
+export GATEW="$(ip route | awk '(NR == 2)' | awk '{ print $1 }'  | cut -d / -f 1)"
+export WAN="$(ip add | grep 'BROADCAST' |  awk '{print $2}' | cut -d ':' -f 1)"
 
 echo "ЭТОТ СКРИПТ НУЖНО ЗАПУСКАТЬ С ПРАВАМИ АДМИНИСТРАТОРА (ИЗ ПОД SUDO).";
 echo "";
@@ -32,7 +32,14 @@ echo -e "\tgateway\t\t${GATEW}";
 echo -e "\tnameserver\t8.8.8.8";
 echo
 echo "Затем нужно будет перезапустить сетеволй интерфейс c помощью команды:";
+echo "";
 echo "sudo -S systemctl restart networking"
+echo "";
+echo "или отключить а затем включить соответсвующее сетевое соединение:"
+echo "";
+echo "sudo ifdown $WAN";
+echo "sudo ifup $WAN";
+echo "";
 echo "или перезагрузиться."
 echo
 read -p "Хотите чтобы скрипт сделал это (возможно, и сломает)? (Y/N):" -n 1 -r
@@ -50,6 +57,7 @@ echo -e "\tgateway\t\t${GATEW}"  >> /etc/network/interfaces
 echo -e "\tnameserver\t8.8.8.8"  >> /etc/network/interfaces
 
 echo "";
+echo "Полезное чтение: https://serveradmin.ru/nastroyka-seti-v-debian/";
 echo " _._     _,-'\"\"\`-._";
 echo "(,-.\`._,'(       |\\\`-/|";
 echo "    \`-.-' \\ )-\`( , o o)";
@@ -57,5 +65,10 @@ echo "          \`-    \\\`_\`\"'-  Mi-mi-mi... Ok!";
 echo "";
 
 sudo -S systemctl restart networking
+#
+# А еще надежнее просто отключить соответсвующее сетевое соединение и после включить назад
+# sudo ifdown $WAN
+# sudo ifup $WAN
+#
 
 exit
