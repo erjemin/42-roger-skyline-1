@@ -41,21 +41,23 @@ $IPT -A OUTPUT -o lo -j ACCEPT
 # $IPT -A INPUT -p icmp --icmp-type time-exceeded -j ACCEPT
 # $IPT -A INPUT -p icmp --icmp-type echo-request -j ACCEPT
 
+
 # Разрешаем исходящие соединения с самого сервера
 $IPT -A OUTPUT -o $WAN -j ACCEPT
 
 # Состояние ESTABLISHED говорит о том, что это не первый пакет в соединении.
 # Пропускать все уже инициированные соединения, а также дочерние от них.
 # Так мы разрешим использование текущего порта на который настроен и
-# открыт, в настощий момент, SSH.
-# $IPT -A INPUT -p all -m state --state ESTABLISHED,RELATED -j ACCEPT
+# открыт, в настощий момент, SSH а еще доступ к репозиториям для получения
+# новых пакетов и их обновлений.
+$IPT -A INPUT -p all -m state --state ESTABLISHED,RELATED -j ACCEPT
 # Разрешить новые, а так же уже инициированные и их дочерние соединения
-# $IPT -A OUTPUT -p all -m state --state ESTABLISHED,RELATED -j ACCEPT
+$IPT -A OUTPUT -p all -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
 # Разрешить форвардинг для уже инициированных и их дочерних соединений
-# $IPT -A FORWARD -p all -m state --state ESTABLISHED,RELATED -j ACCEPT
+$IPT -A FORWARD -p all -m state --state ESTABLISHED,RELATED -j ACCEPT
 
 # Включаем фрагментацию пакетов. Необходимо из-за разных значений MTU
-# $IPT -I FORWARD -p tcp --tcp-flags SYN,RST SYN -j TCPMSS --clamp-mss-to-pmtu
+$IPT -I FORWARD -p tcp --tcp-flags SYN,RST SYN -j TCPMSS --clamp-mss-to-pmtu
 
 # Отбрасывать все пакеты, которые не могут быть идентифицированы
 # и поэтому не могут иметь определенного статуса.
