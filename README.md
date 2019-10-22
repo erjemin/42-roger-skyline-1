@@ -2,14 +2,14 @@
 
 Задание (проект) roger-skyline-1 (42 association / 21 school).
 
-## 01. VM Part ##
+## A. VM Part ##
 
 * Если вы делаете задание дома: Загружаем Oracle VirtualBox 6.x -- *[по ссылке](https://www.virtualbox.org/wiki/Downloads)*.
 * Если вы делаете задание дома: Устанавливаем Oracle VirtualBox 6.x v нашу операционную систему.
 * Звгружаем ISO-образ установочного CD-диска Debian GNU/Linux. Текущая (последняя) версия -- **debian 10.0.0  amd64 NetInst** -- *[по ссылкеe](https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/)*.
 * Запускаем Oracle VirtualBox и [следуем инструкциям](00-VM/README.md). 
 
-## 02. Network and Security Part
+## B. Network and Security Part
 
 1. Создаём пользователя ([скрипт A](01-network-and-security/01a-add-user.sh), затем [скрипт B](01-network-and-security/01b-add-user.sh)).
 2. Включаем для него sudo ([скрипт A](01-network-and-security/02a-sudo.sh), затем [скрипт B](01-network-and-security/02b-sudo.sh))
@@ -21,8 +21,10 @@
    
    Проверить что все закрыто после исполнения скрипта можно с помощью `ping` на нашу виртуальную машину. Она не будет отвечать на ping-запросы (но, на самом деле, это не всегда хорошо).
    
-6.       
+6. Установить защиту DOS (атака отказа в обслуживании) на открытые порты вашей виртуальной машины.
 
-		
+   DoS и DDoS-атака -- это агрессивное внешнее воздействие на сервер, проводимое с целью перегрузить его запросами, доведения его до отказа или брутфорс-взлома (brute force -- грубая сила, например, подбор паролей перебором и т.п.).
 
+   Если атака проводится с одиночного компьютера -- ее называют DoS (Denial of Service), если с нескольких, распределенных в сети, компьютеров — DDoS (Distributed Denial of Service).
 
+   Защиту от DoS может обеспечить пакет `fail2ban`. Для его установки и инастройки используйте [скрипт](01-network-and-security/06-DOS-protection.sh).   
