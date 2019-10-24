@@ -29,4 +29,4 @@
 
    Защиту от DoS может обеспечить пакет `fail2ban`. Для его установки и инастройки используйте [скрипт](01-network-and-security/06-DOS-protection.sh).
    
-7. Защита от сканирования   
+7. Защита от сканирования с помощью `portsentry`. Дляустановки и настройки [используйте скрипт](01-network-and-security/07-scans-protection.sh) и [конфигурационный файл](01-network-and-security/portsentry.conf).   
